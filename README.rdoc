@@ -1,0 +1,8 @@
+Exec Remote is a simple utility to run tests/build against your development code in a remote machine 
+without checking in to a repository. 
+
+It sync ups your code in local and remote machine with rsync and
+the commands are executed in remote machine via SSH
+
+
+More coming soon.

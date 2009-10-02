@@ -1,0 +1,11 @@
+CHANGELOG.rdoc
+Manifest
+README.rdoc
+Rakefile
+bin/exec_remote
+lib/exec_remote.rb
+lib/exec_remote/cli.rb
+lib/exec_remote/configuration.rb
+lib/exec_remote/remote_executor.rb
+lib/exec_remote/shell.rb
+spec/functional/basic_spec.rb
