@@ -4,7 +4,7 @@ rescue LoadError
   abort "gem 'echoe' is required"
 end
 
-version = "0.0.1"
+version = "0.0.2"
 
 Echoe.new('exec_remote', version) do |p|
   p.include_gemspec = true

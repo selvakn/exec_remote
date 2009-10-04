@@ -3,6 +3,7 @@ Manifest
 README.rdoc
 Rakefile
 bin/exec_remote
+exec_remote.gemspec
 lib/exec_remote.rb
 lib/exec_remote/cli.rb
 lib/exec_remote/configuration.rb
