@@ -15,6 +15,9 @@ module ExecRemote
       ::Net::SSH.start(host, user, :password => password, :config=>false, :paranoid=>false) do |ssh|
         yield(ssh)
       end
+    rescue Net::SSH::AuthenticationFailed => error
+      puts "Authentication with server failed." 
+      raise error
     end
 
     def self.execute(ssh_connection, command)

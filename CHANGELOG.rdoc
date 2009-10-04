@@ -1,3 +1,10 @@
+== 0.0.2 / October 2, 2009
+
+* Syncing the standard output, so that the output if flushed imediately. No need to wait for the line to complete.
+* Moved rsync as an option, which can be disabled in config file.
+* Also rsync ignore pattern can be modified in the config file.
+* Added password option in the config file, so that password can be added once and no need to give password for every command. [Still password will be prompted on rsync.]
+
 == 0.0.1 / October 2, 2009
 
 * Some of the basic functionality.

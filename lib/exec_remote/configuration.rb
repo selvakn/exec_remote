@@ -6,7 +6,11 @@ module ExecRemote
       updated_config = update_config_from_user(config.dup)
       
       return config if config == updated_config
-      File.open(config_file, "w") {|f| f.puts updated_config.to_yaml}
+      File.open(config_file, "w") do |f| 
+        config_to_write = default_config.merge updated_config
+        f.puts config_to_write.to_yaml
+        puts "Config written to '.exec_remote.yml'. Add this file to version control ignore list."
+      end
       exec_config
     end
     
@@ -25,6 +29,18 @@ module ExecRemote
     def remote_user
       exec_config["user"]
     end
+    
+    def remote_password
+      exec_config["password"]
+    end
+    
+    def rsync?
+      exec_config["rsync"]
+    end
+
+    def rsync_ignore_pattern
+      exec_config["rsync_ignore_pattern"]
+    end
 
     def my_dir_on_remote
       File.join(exec_config["base_location"], exec_config["location"])
@@ -37,14 +53,13 @@ module ExecRemote
     private
     def config_from_file
       return {} unless File.exists?(config_file)
-      YAML.load_file config_file
+      YAML.load_file(config_file) || {}
     end
     
     def update_config_from_user(config = {})
       config = check_and_update_config(config, "host", "the remote hostname/ip")
       config = check_and_update_config(config, "user", "the remote host username")
-      config = check_and_update_config(config, "location", "your location on remote host", current_project)
-      config["base_location"] ||= "data"
+      config = check_and_update_config(config, "location", "your location on remote host", host_name)
       config
     end
     
@@ -64,6 +79,18 @@ module ExecRemote
     def strip_string(string)
       str = string.strip
       str.empty? ? nil : str
+    end
+    
+    def host_name
+      `hostname`.split(".").first
+    end
+    
+    def default_config
+      {
+        "base_location" => "data",
+        "rsync" => true,
+        "rsync_ignore_pattern" => ".git",
+      }
     end
   end
 end
